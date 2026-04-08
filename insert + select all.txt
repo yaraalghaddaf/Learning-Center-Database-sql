@@ -1,0 +1,161 @@
+INSERT INTO Students (FirstName, LastName, Email, PhoneNumber, DateOfBirth)
+VALUES 
+('Alice', 'Smith', 'alice.smith@gmail.com', '71501442', '2005-05-14'),
+('Bob', 'Johnson', 'bob.johnson@gmail.com', '03815618', '2004-07-23'),
+('Charlie', 'Brown', 'charlie.brown@gmail.com', '71289988', '2005-09-12'),
+('David', 'Lee', 'david.lee@gmail.com', '81619153', '2004-01-15'),
+('Emma', 'Jones', 'emma.jones@gmail.com', '78892328', '2003-11-03');
+
+SELECT * FROM STUDENTS;
+
+
+
+INSERT INTO Courses (CourseName, Description, Duration, Price)
+VALUES 
+('Introduction to Data Science', 'Learn the basics of data science, including tools and techniques.', 15, 1500.00),
+('Advanced Mathematics', 'An advanced course on calculus and linear algebra.', 10, 1600.00),
+('Organic Chemistry', 'Organic Chemistry studies carbon-based compounds, their structures, reactions, and applications, often with lab work.', 15, 2700.00),
+('English001', 'An English course develops reading, writing, speaking, and critical thinking skills, focusing on grammar, vocabulary, and essay writing.', 8, 950.00),
+('Economics for Beginners', 'An introductory course on micro and macroeconomics.', 13, 1550.00);
+
+SELECT * FROM COURSES;
+ 
+
+
+INSERT INTO Enrollments (StudentID, CourseID)
+VALUES 
+(1, 1),  -- Alice enrolled in Data Science
+(1, 2),  -- Alice enrolled in Mathematics
+(2, 2),  -- Bob enrolled in Mathematics
+(3, 3),  -- Charlie enrolled in Organic Chemistry
+(4, 4),  -- David enrolled in English001
+(5, 5);  -- Emma enrolled in Economics
+
+SELECT * FROM ENROLLMENTS;
+
+
+
+INSERT INTO Instructors (FirstName, LastName, Email, PhoneNumber, Specialization, Salary)
+VALUES 
+('John', 'Doe', 'john.doe@gmail.com', '76444333', 'Data Science', 7000.00),
+('Jane', 'Smith', 'jane.smith@gmail.com', '71231445', 'Mathematics', 4800.00),
+('Emily', 'Davis', 'emily.davis@gmail.com', '03442765', 'Biochemistry', 5700.00),
+('Michael', 'Brown', 'michael.brown@gmail.com', '78541220', 'Language', 4500.00),
+('Olivia', 'Wilson', 'olivia.wilson@gmail.com', '71110565', 'Economics', 2900.00);
+
+SELECT * FROM INSTRUCTORS;
+
+
+INSERT INTO Classrooms (RoomNumber, Capacity)
+VALUES 
+('A101', 30),
+('B202', 25),
+('C303', 35),
+('D404', 40),
+('E505', 35);
+
+SELECT * FROM CLASSROOMS;
+
+
+INSERT INTO Schedules (CourseID, InstructorID, ClassroomID, StartTime, EndTime, Days)
+VALUES 
+(1, 1, 1, '09:00:00', '10:30:00', 'Monday, Wednesday'), -- Data Science
+(2, 2, 2, '09:00:00', '10:30:00', 'Monday, Tuesday'),   -- Mathematics
+(2, 1, 1, '14:00:00', '15:30:00', 'Monday, Tuesday'),   -- Mathematics (Different time slot)
+(3, 3, 3, '11:00:00', '12:30:00', 'Thursday'),          -- Organic Chemistry
+(4, 4, 4, '13:00:00', '14:30:00', 'Thursday'),          -- English001
+(5, 5, 5, '10:00:00', '11:30:00', 'Friday');            -- Economics
+
+SELECT * FROM SCHEDULES;
+
+
+
+
+INSERT INTO Attendances (StudentID, ScheduleID, Status)
+VALUES 
+(1, 1, 'Present'),  -- Alice attended Data Science class
+(2, 2, 'Present'),  -- Bob attended Mathematics class (first time slot)
+(1, 3, 'Present'),  -- Alice attended Mathematics class (second time slot)
+(3, 4, 'Absent'),   -- Charlie missed Organic Chemistry class
+(4, 5, 'Present'),  -- David attended English001 class
+(5, 6, 'Present');  -- Emma attended Economics class
+
+SELECT * FROM Attendances;
+
+
+
+INSERT INTO Materials (CourseID, MaterialName, MaterialType)
+VALUES 
+(1, 'Percentiles and deciles', 'Powerpoint'),
+(2, 'sets and cardinality', 'PDF'),
+(3, 'Alkenes', 'Lab,Worksheets'),
+(4, 'AudioBook' , 'Audio, Powerpoint'),
+(5, 'Economics Workbook', 'PDF');
+
+SELECT * FROM MATERIALS;
+
+
+
+INSERT INTO Feedbacks (StudentID, CourseID, Rating, Comments, DateSubmitted)
+VALUES 
+(1, 1, 5, 'Excellent course and explanation  with great examples.', '2024-01-20'), -- Data Science
+(1, 2, 4, 'Very detailed explanations, but a bit slow-paced.', '2024-01-21'), -- Mathematics
+(2, 2, 4, 'The instructor was excellent, although the material was complicated.', '2024-01-16'), -- Mathematics
+(3, 3, 3, 'The material could be improved; it was hard.', '2024-01-17'), -- Organic Chemistry
+(4, 4, 1, 'Very hard content; I did not understand the course.', '2024-01-18'), -- English001
+(5, 5, 4, 'Good content and explanation.', '2024-01-19'); -- Economics
+
+SELECT * FROM FEEDBACKS;
+
+
+
+INSERT INTO Courses_Instructors (CourseID, InstructorID)
+VALUES 
+(1, 1),  -- Data Science → John Doe
+(2, 2),  -- Mathematics → Jane Smith
+(3, 3),  -- Organic Chemistry → Emily Davis
+(4, 4),  -- English001 → Michael Brown
+(5, 5);  -- Economics → Olivia Wilson
+
+-- Second INSERT: Assigning multiple instructors to the same course
+INSERT INTO Courses_Instructors (CourseID, InstructorID)
+VALUES 
+(2, 1);  -- Mathematics also taught by John Doe
+
+SELECT * FROM COURSES_INSTRUCTORS;
+
+
+
+INSERT INTO Payments (CourseID, StudentID, Amount, PaymentDate, PaymentMethod, Status)
+VALUES 
+(1, 1, 1500.00, '2024-01-10 10:00:00', 'Credit Card', 'Paid'), -- Alice for Data Science
+(2, 2, 1600.00, '2024-01-11 11:00:00', 'Bank Transfer', 'Paid'), -- Bob for Mathematics
+(3, 3, 2700.00, '2024-01-12 12:00:00', 'Cash', 'Paid'), -- Charlie for Organic Chemistry
+(4, 4, 950.00, '2024-01-13 13:00:00', 'Credit Card', 'Paid'), -- David for English001
+(5, 5, 1550.00, '2024-01-14 14:00:00', 'Bank Transfer', 'Paid'), -- Emma for Economics
+(2, 1, 1600.00, '2024-01-10 10:00:00', 'Credit Card', 'Pending'); -- Alice for Mathematics
+
+SELECT * FROM PAYMENTS;
+
+
+
+INSERT INTO Assignments (AssignmentTitle, CourseID, Description, MaxGrade, DueDate)
+VALUES 
+('Data Analysis P33 and D10', 1, 'Analyze the dataset after calculating the decile and percentile.', 100, '2024-02-15'), -- Data Science
+('Calculus Problem Set', 2, 'determine the union and the intersection and precise the cardinality of each set.', 100, '2024-02-20'), -- Mathematics
+('Organic Chemistry Lab', 3, 'Submit lab results and report.', 100, '2024-02-25'), -- Organic Chemistry
+('English Essay', 4, 'Write an essay on a given topic.', 100, '2024-03-01'), -- English001
+('Economics Case Study', 5, 'Analyze an economic situation.', 100, '2024-03-05'); -- Economics
+
+SELECT * FROM Assignments;
+
+INSERT INTO Submissions (AssignmentID, StudentID, Grade)
+VALUES 
+(1, 1, 95), -- Alice submitted the "Data Analysis P33 and D10" assignment for Data Science
+(2, 1, 88), -- Alice submitted the "Calculus Problem Set" assignment for Mathematics
+(2, 2, 92), -- Bob submitted the "Calculus Problem Set" assignment for Mathematics
+(3, 3, 85), -- Charlie submitted the "Organic Chemistry Lab" assignment for Organic Chemistry
+(4, 4, 70), -- David submitted the "English Essay" assignment for English001
+(5, 5, 80); -- Emma submitted the "Economics Case Study" assignment for Economics
+
+SELECT * FROM Submissions;

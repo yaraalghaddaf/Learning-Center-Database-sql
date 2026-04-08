@@ -1,0 +1,136 @@
+-- Students Table
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    DateOfBirth DATE
+);
+
+-- Instructors Table
+CREATE TABLE Instructors (
+    InstructorID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    Specialization VARCHAR(100),
+	Salary DECIMAL(10,2)
+);
+
+-- Courses Table
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY IDENTITY(1,1),
+    CourseName VARCHAR(100),
+    Description TEXT,
+    Duration INT,
+    Price DECIMAL(10, 2)
+);
+
+-- Classrooms Table
+CREATE TABLE Classrooms (
+    ClassroomID INT PRIMARY KEY IDENTITY(1,1),
+    RoomNumber VARCHAR(20),
+    Capacity INT
+);
+
+-- Schedules Table
+CREATE TABLE Schedules (
+    ScheduleID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT,
+    InstructorID INT,
+    ClassroomID INT,
+    StartTime DATETIME,
+    EndTime TIME,
+    Days VARCHAR(50),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+    FOREIGN KEY (InstructorID) REFERENCES Instructors(InstructorID),
+    FOREIGN KEY (ClassroomID) REFERENCES Classrooms(ClassroomID)
+);
+
+-- Materials Table
+CREATE TABLE Materials (
+    MaterialID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT,
+    MaterialName VARCHAR(100),
+    MaterialType VARCHAR(50),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- Feedbacks Table
+CREATE TABLE Feedbacks (
+    FeedbackID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT,
+    CourseID INT,
+    Rating INT,
+    Comments NVARCHAR(MAX),
+    DateSubmitted DATE,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+
+-- Courses_Instructors Table
+CREATE TABLE Courses_Instructors (
+    Course_InstructorID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT,
+    InstructorID INT,
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+    FOREIGN KEY (InstructorID) REFERENCES Instructors(InstructorID)
+);
+
+-- Payments Table
+CREATE TABLE Payments (
+    PaymentID INT PRIMARY KEY IDENTITY(1,1),
+    CourseID INT,
+    StudentID INT,
+    Amount DECIMAL(10, 2),
+    PaymentDate DATETIME,
+    PaymentMethod VARCHAR(50),
+    Status VARCHAR(50),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+);
+
+-- Assignments Table
+CREATE TABLE Assignments (
+    AssignmentID INT PRIMARY KEY IDENTITY(1,1),
+    AssignmentTitle VARCHAR(100),
+    CourseID INT,
+    Description VARCHAR(255),
+    MaxGrade INT,
+    DueDate DATE,
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- Submissions Table
+CREATE TABLE Submissions (
+    SubmissionID INT PRIMARY KEY IDENTITY(1,1),
+    AssignmentID INT,
+    StudentID INT,
+    Grade INT,
+    FOREIGN KEY (AssignmentID) REFERENCES Assignments(AssignmentID),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+);
+
+-- Enrollments Table
+CREATE TABLE Enrollments (
+    EnrollmentID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT,
+    CourseID INT,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- Attendances Table
+CREATE TABLE Attendances (
+    AttendanceID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT,
+    ScheduleID INT,
+    Status VARCHAR(50),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (ScheduleID) REFERENCES Schedules(ScheduleID)
+);
+
+
